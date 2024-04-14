@@ -15,7 +15,7 @@ n = 1000
 d = 0.0001
 B0 = 0
 B=Brownian(n,B0,d)
-plot(B$k,B$Brownian,type="l",col="blue")
+plot(B$k,B$Brownian,type="l",col="blue",ylim = c(-2,2))
 
 ## Построить ансамбль реализаций процесса, замоделированного на предыдущем шаге, 
 ## и вывести все реализации процесса на один график. Т.е.
@@ -48,7 +48,7 @@ a = 0.5
 d = 0.0001
 sigma = 0.9
 s = S(n,d,a,sigma,S0,B0)
-plot(s$k,s$S,type = "l",col="blue")
+plot(s$k,s$S,type = "l",col="blue",ylim = c(0,3))
 
 ## Построить 200 реализаций процесса (10) на одном графике.
 for(i in 1:199){
