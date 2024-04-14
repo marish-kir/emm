@@ -31,21 +31,49 @@ plot(reg$h,main = title,type="l",col="blue")
 ## (МНК), путем преобразования процесса 𝐴𝑅𝐶𝐻(1) ≡ 𝐺𝐴𝑅𝐶𝐻(1, 0) к
 ## процессу авторегрессии первого порядка.
 reg = reg$h
-ch = numeric(n-1)
-zn = numeric(n)
+sum1 = 0
 sum2 = 0
+chisl = 0
+zn = 0
 a1_estimate = 0
 a0_estimate = 0
-for (i in 2 : n) {
-  ch[i-1] = (reg[i]**2)*((reg[i-1]**2) - 1)
-  zn[i-1] = (reg[i-1]**4)-(reg[i-1]**2)
+for (k in 2 : n) {
+ for(s in 2 : n){
+   sum1 = sum1 + (reg[k]**2)*(reg[s-1]**2)
+ }
 }
-a1_estimate = sum(ch)/sum(zn)
-sum = numeric(n-1)
-for (i in 2 : n) {
-  sum[i-1]= reg[i]**2 - a1_estimate*reg[i-1]**2
+for(k in 2:n){
+  sum2 = sum2 + (reg[k]**2)*(reg[k-1]**2)
 }
-a0_estimate = sum(sum)/n
+chisl = sum1 - n*sum2
+sum1 = 0
+sum2 = 0
+for (k in 2 : n) {
+  for(s in 2 : n){
+    sum1 = sum1 + (reg[k-1]**2)*(reg[s-1]**2)
+  }
+}
+for(k in 2:n){
+  sum2 = sum2 + (reg[k-1]**4)
+}
+zn = sum1 - n*sum2
+
+a1_estimate = chisl/zn
+
+sum1 = 0
+chisl = 0
+zn = 0
+
+for(k in 2:n){
+  sum1 = sum1 + (reg[k-1]**2)*(reg[k]**2)
+}
+chisl = sum1 - a1_estimate*sum2
+sum1 = 0
+for(k in 2:n){
+  sum1 = sum1 + (reg[k-1]**2)
+}
+zn = sum2
+a0_estimate = chisl/zn
 print("Оценка а0:")
 a0_estimate
 print("Оценка а1:")
