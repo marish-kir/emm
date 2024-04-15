@@ -85,7 +85,7 @@ for(i in 1:n){
 }
 psi1= (1/n)*summ;psi1
 
-r = c/(lambda*mu) - 1;r
+r = c/(lamda*mu) - 1;r
 psi2 = exp((-1/mu)*r/(1+r)*U0);psi2
 # psi1 < psi2 условие выполняется
 
